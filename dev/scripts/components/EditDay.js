@@ -19,7 +19,6 @@ class EditDay extends Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                // const dbRef = firebase.database().ref(`users/${this.props.userID}/choreList/${this.props.list}/${this.props.day}`);
                 firebase
                     .database()
                     .ref(`users/${user.uid}/choreList/${this.props.list}/${this.props.day}`)
@@ -38,9 +37,7 @@ class EditDay extends Component {
                             choreList: choreArray
                         });
                     });
-                // dbRef.on('value', (snapshot) => {
-                    
-                // });
+
             }
         });
     }

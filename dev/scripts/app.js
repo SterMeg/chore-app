@@ -91,7 +91,10 @@ class App extends React.Component {
           </header>
           <main>
             <Route exact path="/" component={HomePage}/>
-            <Route path="/DayView" component={DayView}/>
+            <Route path="/DayView" render={() => 
+              <DayView 
+                weekArray={this.state.weekArray}
+                userID={this.state.userID}/>}/>
             <Route path="/EditList" render={() =>
               <EditList
                 weekArray={this.state.weekArray}
