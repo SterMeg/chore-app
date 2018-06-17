@@ -1,0 +1,16 @@
+li.card-body {
+    list-style-type: none;
+}
+
+.chore-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p.chore-name {
+        margin: 0;
+    }
+}
+
+.single-day {
+    margin-bottom: 30px;
+}
