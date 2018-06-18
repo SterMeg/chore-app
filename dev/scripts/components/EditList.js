@@ -10,30 +10,22 @@ const EditList = (props) => {
     // });
     return (
         <div className="row">
-            <ul className="col-sm-6">
-                <h4>List One</h4>
-                {props.weekArray.map((day) => {
-                    return (
-                        <EditDay 
-                            key={day}
-                            day={day}
-                            list={'one'}
-                            userID={props.userID}/>   
-                    )
+            {props.userArray.map((user) => {
+                return (
+                <ul key={user.key} className="col-sm-6">
+                    <h4>{user.value}</h4>
+                    {props.weekArray.map((day) => {
+                        return (
+                            <EditDay 
+                                key={day}
+                                day={day}
+                                list={user.value}
+                                userID={props.userID}/>   
+                        )
+                    })}
+                </ul>
+                )
                 })}
-            </ul>
-            <ul className="col-sm-6">
-                <h4>List Two</h4>
-                {props.weekArray.map((day) => {
-                    return (
-                        <EditDay
-                            key={day}
-                            day={day}
-                            list={'two'} 
-                            userID={props.userID}/>
-                    )
-                })}
-            </ul>
         </div>
     )
 }

@@ -31,7 +31,8 @@ class App extends React.Component {
       loggedIn: false,
       weekArray: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       userID: null,
-      userName: ''
+      userName: '',
+      userArray: []
     }
 
     this.loginWithGoogle = this.loginWithGoogle.bind(this);
@@ -39,13 +40,26 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.dbRef = firebase.database().ref('chores');
+    this.dbRef = firebase.database().ref();
 
     firebase.auth().onAuthStateChanged((user) => {
       if(user !== null) {
         this.dbRef.on('value', (snapshot) => {
-          console.log(snapshot.val());
+          const choreData = snapshot.val();
+
+          const loggedInUser = user.uid;
+          const userList = choreData.users[loggedInUser]['userList'];
           
+          const userArray = [];
+
+          for (let item in userList) {
+            userList[item].key = item;
+            userArray.push(userList[item])
+          }
+
+          this.setState({
+            userArray: userArray
+          });      
         });
         this.setState({
           loggedIn: true,
@@ -56,8 +70,7 @@ class App extends React.Component {
         console.log('User logged out');
         this.setState({
           loggedIn: false,
-          userID: '',
-          userName: ''
+          userID: ''
         })
       }
     })
@@ -80,6 +93,7 @@ class App extends React.Component {
     this.dbRef.off('value');
   }
 
+
   render() {
     return <Router>
         <div className="container">
@@ -93,14 +107,20 @@ class App extends React.Component {
             <Route exact path="/" component={HomePage}/>
             <Route path="/DayView" render={() => 
               <DayView 
+                userArray={this.state.userArray}
                 weekArray={this.state.weekArray}
-                userID={this.state.userID}/>}/>
+                userID={this.state.userID}/>}
+                />
             <Route path="/EditList" render={() =>
               <EditList
+                userArray={this.state.userArray}
                 weekArray={this.state.weekArray}
                 userID={this.state.userID}
                 />} />
-            <Route path="/Users" component={Users} />
+            <Route path="/Users" render={() =>
+              <Users 
+                userArray={this.state.userArray}
+                userID={this.state.userID}/>} />
           </main>
         </div>
       </Router>;
