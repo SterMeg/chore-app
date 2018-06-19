@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import TaskToggle from './TaskToggle';
 import firebase from 'firebase';
 
 class SingleDay extends Component {
@@ -9,6 +10,8 @@ class SingleDay extends Component {
             dayName: '',
             choreList: []
         }
+
+        this.finishedChore = this.finishedChore.bind(this);
     }
 
     componentDidMount() {
@@ -38,12 +41,33 @@ class SingleDay extends Component {
                         }
 
                         this.setState({
-                            choreList: choreArray
+                            choreList: choreArray,
+                            userID: user.uid
                         });
                     });
             }
         });
     }
+
+    finishedChore(firebaseKey, isComplete) {
+        console.log('being called');
+        if (isComplete === false) {
+            firebase
+                .database()
+                .ref(`users/${this.state.userID}/choreList/${this.props.list}/${this.state.dayName}/${firebaseKey}`)
+                .update({
+                    complete: true
+                });
+        } else if (isComplete === true) {
+            firebase
+                .database()
+                .ref(`users/${this.state.userID}/choreList/${this.props.list}/${this.state.dayName}/${firebaseKey}`)
+                .update({
+                    complete: false
+                });
+        }
+    }
+    
 
     render() {
         return (
@@ -54,6 +78,11 @@ class SingleDay extends Component {
                     return (
                         <li key={choreItem.key} className="list-group-item chore-list-item">
                             <p className="chore-name">{choreItem.value}</p>
+                            <TaskToggle 
+                                firebaseKey={choreItem.key}
+                                choreItem = {choreItem}
+                                finishedChore = {this.finishedChore}
+                             />
                         </li>
                     )
                 })}

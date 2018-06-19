@@ -46,7 +46,8 @@ class EditDay extends Component {
         e.preventDefault();
 
         const choreItem = {
-            value: this.state.chore
+            value: this.state.chore,
+            complete: false
         };
 
         const dbRef = firebase.database().ref(`users/${this.props.userID}/choreList/${this.props.list}/${this.props.day}`);

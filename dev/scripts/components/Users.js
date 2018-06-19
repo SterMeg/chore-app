@@ -35,6 +35,10 @@ class Users extends Component {
         });
     }
 
+    removeChore(keyToRemove) {
+        firebase.database().ref(`users/${this.props.userID}/userList/${keyToRemove}`).remove();
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -45,7 +49,10 @@ class Users extends Component {
                 <ul className="list-group">
                     {this.props.userArray.map((user) => {
                         return (
-                            <li className="list-group-item" key={user.key}>{user.value}</li>
+                            <li className="list-group-item chore-list-item" key={user.key}>
+                                <p className="chore-name">{user.value}</p>
+                                <button className="remove-chore btn btn-outline-warning btn-sm" onClick={() => this.removeChore(user.key)}>Remove</button>
+                            </li>
                         )
                     })}
                 </ul>
