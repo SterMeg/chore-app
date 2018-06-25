@@ -6,7 +6,8 @@ class Users extends Component {
         super(props);
 
         this.state = {
-            user: ''
+            user: '',
+            index: 0
         }
         console.log(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,17 +17,24 @@ class Users extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
+
         const user = {
-            value: this.state.user
+            value: this.state.user,
+            index: this.state.index
         };
+    
 
         const dbRef = firebase.database().ref(`users/${this.props.userID}/userList`);
 
         dbRef.push(user);
 
+        let updateIndex = this.state.index + 1;
+
         this.setState({
-            user: ''
+            user: '',
+            index: updateIndex
         });
+
     }
 
     handleChange(e) {

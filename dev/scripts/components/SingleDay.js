@@ -7,7 +7,6 @@ class SingleDay extends Component {
         super(props);
 
         this.state = {
-            dayName: '',
             choreList: [],
             addCompletedClass: false
         }
@@ -17,20 +16,11 @@ class SingleDay extends Component {
     }
 
     componentDidMount() {
-        const currDate = new Date;
-        const currDay = currDate.getDay();
-
-        const dayName = this.props.weekArray[currDay];
-
-        this.setState({
-            dayName
-        });
-
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 firebase
                     .database()
-                    .ref(`users/${user.uid}/choreList/${this.props.list}/${this.state.dayName}`)
+                    .ref(`users/${user.uid}/choreList/${this.props.list}/${this.props.dayName}`)
                     .on('value', snapshot => {
                         const data = snapshot.val();
                         const choreArray = [];
@@ -59,14 +49,14 @@ class SingleDay extends Component {
         if (isComplete === false) {
             firebase
                 .database()
-                .ref(`users/${this.state.userID}/choreList/${this.props.list}/${this.state.dayName}/${firebaseKey}`)
+                .ref(`users/${this.state.userID}/choreList/${this.props.list}/${this.props.dayName}/${firebaseKey}`)
                 .update({
                     complete: true
                 });
         } else if (isComplete === true) {
             firebase
                 .database()
-                .ref(`users/${this.state.userID}/choreList/${this.props.list}/${this.state.dayName}/${firebaseKey}`)
+                .ref(`users/${this.state.userID}/choreList/${this.props.list}/${this.props.dayName}/${firebaseKey}`)
                 .update({
                     complete: false
                 });
@@ -96,18 +86,16 @@ class SingleDay extends Component {
         const completedClass = this.state.addCompletedClass === true ? "finished" : "";
         return (
             <div className={`card ${completedClass}`}>
-                <div className="card-header">{this.state.dayName}</div>
+                <div className="card-header">{this.props.dayName}</div>
                 <ul className="list-group list-group-flush">
                 {this.state.choreList.map((choreItem) => {
                     return (
-                        <li key={choreItem.key} className="list-group-item chore-list-item">
-                            <p className="chore-name">{choreItem.value}</p>
                             <TaskToggle 
+                                key={choreItem.key}
                                 firebaseKey={choreItem.key}
                                 choreItem = {choreItem}
                                 finishedChore = {this.finishedChore}
                              />
-                        </li>
                     )
                 })}
                 </ul>

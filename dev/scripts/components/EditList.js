@@ -10,16 +10,16 @@ const EditList = (props) => {
     // });
     return (
         <div className="row">
-            {props.userArray.map((user) => {
+            {props.userArray.map((user, i) => {
                 return (
                 <ul key={user.key} className="col-sm-6">
-                    <h4>{user.value}</h4>
+                    <h4>List {i + 1}</h4>
                     {props.weekArray.map((day) => {
                         return (
                             <EditDay 
                                 key={day}
                                 day={day}
-                                list={user.value}
+                                list={i}
                                 userID={props.userID}/>   
                         )
                     })}
