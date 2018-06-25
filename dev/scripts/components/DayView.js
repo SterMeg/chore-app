@@ -40,14 +40,14 @@ class DayView extends Component {
     render() {
         return(
             <React.Fragment>
-                <h2>Today's Chores</h2>
+                <h2 className="text-center mb-5">Today's Chores</h2>
                 {/* <button className="btn btn-outline-secondary"onClick={() => this.props.switchList()}>Swap Chores</button>
                 <p>Chores lists will remain swapped until clicked again</p> */}
                 <div className="row">
                     {this.props.userArray.map((user, i) => {
                         return (
                             <div key={user.key} className="col-sm-6">
-                            <h4>{user.value}</h4>
+                            <h4 className="mb-3">{user.value}</h4>
                                 <SingleDay 
                                     userArray={this.props.userArray}
                                     weekArray={this.props.weekArray}

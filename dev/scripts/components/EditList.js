@@ -13,7 +13,7 @@ const EditList = (props) => {
             {props.userArray.map((user, i) => {
                 return (
                 <ul key={user.key} className="col-sm-6">
-                    <h4>List {i + 1}</h4>
+                        <h4 className="text-center mb-5">List {i + 1}</h4>
                     {props.weekArray.map((day) => {
                         return (
                             <EditDay 

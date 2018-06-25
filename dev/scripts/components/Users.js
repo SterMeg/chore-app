@@ -50,7 +50,7 @@ class Users extends Component {
     render() {
         return (
             <React.Fragment>
-                <h2>Users</h2>
+                <h2 className="text-center mb-5">Users</h2>
                 <form action="" onSubmit={this.handleSubmit}>
                     <input type="text" className="form-control" name="user" placeholder="Add user" onChange={this.handleChange} value={this.state.user} />
                 </form>

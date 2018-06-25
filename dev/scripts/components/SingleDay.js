@@ -85,7 +85,7 @@ class SingleDay extends Component {
     render() {
         const completedClass = this.state.addCompletedClass === true ? "finished" : "";
         return (
-            <div className={`card ${completedClass}`}>
+            <div className={`single-day card ${completedClass}`}>
                 <div className="card-header">{this.props.dayName}</div>
                 <ul className="list-group list-group-flush">
                 {this.state.choreList.map((choreItem) => {
@@ -95,6 +95,7 @@ class SingleDay extends Component {
                                 firebaseKey={choreItem.key}
                                 choreItem = {choreItem}
                                 finishedChore = {this.finishedChore}
+                                completedClass = {completedClass}
                              />
                     )
                 })}

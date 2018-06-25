@@ -14,6 +14,7 @@ li.card-body {
 }
 
 .chore-list-item {
+    color: #565554;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,15 +25,37 @@ li.card-body {
 }
 
 .single-day {
+    color: #eee;
+    background: #565554;
     margin-bottom: 30px;
+    .card-body {
+        background: #fff;
+        color: #086788;
+    }
 }
 
+.remove-chore {
+    color:#F0C808;
+    border-color: #F0C808;
+    &:hover {
+        color: #fff;
+    }
+}
+.chore-list-item {
+    color: #DD1C1A;
+    &.finished {
+        color: #565554;
+    }
+    p {
+        color: #565554;
+    }
+}
 .form-control {
     margin-bottom: 20px;
 }
 
-.finished {
-    background: green;
+.single-day.finished {
+    background: #086788;
 }
 
 .navbar--dark {
@@ -68,6 +91,7 @@ li.card-body {
         background-color: #086788;
     }
 }
+
 
 .footer {
     position: absolute;
